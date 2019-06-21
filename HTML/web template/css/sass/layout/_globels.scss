@@ -1,0 +1,29 @@
+* {
+  @include prefixer(box-sizing, border-box, webkit moz);
+}
+
+body {
+  font: {
+    family: tahoma;
+    size: 16px;
+  }
+  background-color: $bgColor;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+.container {
+  width: 1200px;
+  margin: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+}
+
+.clear-fix {
+  clear: both;
+}

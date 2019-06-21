@@ -1,0 +1,109 @@
+/* Start Slider Section */
+.slider {
+  q {
+    font-size: 30px;
+    font-family: times san-serif;
+    font-style: italic;
+    width: 80%;
+    margin: 30px auto;
+    line-height: 1.6;
+    text-align: center;
+    display: block;
+    &::before,
+    &::after {
+      font-size: 2em;
+      line-height: 0;
+    }
+  }
+  img {
+    width: 100%;
+    max-height: 600px;
+  }
+  .bullets {
+    text-align: center;
+    li {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      background-color: $grayColor;
+      border: 3px solid $grayColor;
+      border-radius: 50%;
+      cursor: pointer;
+      &.active,
+      &:hover {
+        border: 3px solid $darkColor;
+        background-color: $lightColor;
+      }
+    }
+  }
+}
+/* End Slider Section */
+
+/* Start Service Section */
+.service-box {
+  float: $floatLeft;
+  width: (100%/3);
+  &:not(:last-of-type) {
+    padding-right: 10px;
+  }
+  .service-title {
+    span {
+      padding: 0 10px;
+    }
+    i {
+      font-size: 4ex;
+      position: relative;
+      top: 5px;
+    }
+  }
+  .service-desc {
+    line-height: 1.4em;
+  }
+  a {
+    text-decoration: none;
+    color: $mainColor;
+  }
+}
+/* End Service Section */
+
+/* Start Players Section */
+.player-box {
+  float: $floatLeft;
+  width: (100%/5);
+  &:not(:last-of-type) {
+    padding-right: 10px;
+  }
+  img {
+    margin: 0 auto;
+    display: block;
+  }
+  .player-title {
+    span {
+      padding: 0 10px;
+    }
+  }
+  .player-desc {
+    line-height: 1.4em;
+  }
+  a {
+    text-decoration: none;
+    color: $mainColor;
+  }
+}
+/* End Players Section */
+
+/* Start Lorem */
+.lorem-ipsum {
+  .lorem-box {
+    width: (94%/3);
+    float: $floatLeft;
+    &:not(:last-of-type) {
+      margin-right: 3%;
+    }
+    .lorem-img {
+      width: 100%;
+    }
+  }
+}
+
+/* End Lorem */

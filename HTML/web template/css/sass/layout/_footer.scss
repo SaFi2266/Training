@@ -1,0 +1,29 @@
+/* Start footer */
+.footer {
+  background-color: $darkColor;
+  float: $floatLeft;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 50px;
+  .gallery {
+    float: $floatLeft;
+    width: 30%;
+    display: block;
+    .gallery-box {
+      a {
+        text-decoration: none;
+        & > p {
+          color: $lightColor;
+          display: block;
+          margin: 0 10px;
+        }
+        img {
+          display: block;
+          float: $floatLeft;
+          width: 40%;
+        }
+      }
+    }
+  }
+}
+/* End Footer */

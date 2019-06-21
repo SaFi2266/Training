@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Cute+Font|Lato:100,300,700,900" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+  </script>
+  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+  </script>
+  
+  <title>Survey Form</title>
+</head>
+
+<body>
+  <h1 id="title">Survey Form</h1>
+  <div id="form-outter">
+    <p id="description">Let us know how we can improve freeCodeCamp</p>
+    <div>
+      <div>
+        <form id="survey-form" action="#">
+          <div class="rowTab">
+            <div class="labels">
+              <label for="name" id="name-label">* Name:</label>
+            </div>
+            <div class="rTab">
+              <input type="text" id="name" name="name" class="input-field" required placeholder="Enter Your Name" />
+            </div>
+          </div>
+          <div class="rowTab">
+            <div class="labels">
+              <label for="email" id="email-label">* Email:</label>
+            </div>
+            <div class="rTab">
+              <input type="email" id="email" name="email" class="input-field" required placeholder="Entre Your Email" />
+            </div>
+          </div>
+          <div class="rowTab">
+            <div class="labels">
+              <label for="age" id="number-label">* Age:</label>
+            </div>
+            <div class="rTab">
+              <input type="number" id="number" name="number" class="input-field" required min="15" max="100"
+                placeholder="Age" />
+            </div>
+          </div>
+          <div class="rowTab">
+            <div class="labels">
+              <label for="currentPos">
+                Which option best describes your current role?
+              </label>
+            </div>
+            <div class="rTab"><select id="dropdown" name="currentPos" class="dropdown"><option value="" disabled>Select an option</option><option value="student">Student</option><option value="job">Full Time Job</option><option value="learner">Full Time Learner</option><option value="preferNo">Prefer Not To Say</option><option value="other">Other</option></select></div>
+          </div>
+          <div class="rowTab">
+            <div class="labels">
+              <label for="userRating">
+                * How likely is that you would recommend freeCodeCamp to a
+                friend?
+              </label>
+            </div>
+            <div class="rTab">
+              <ul style="list-style: none;">
+                <li class="radio">
+                  <label>
+                    Definitely
+                    <input value="1" type="radio" name="radio-buttons" class="userRating" />
+                  </label>
+                </li>
+                <li class="radio">
+                  <label>Maybe
+                    <input value="2" type="radio" name="radio-buttons" class="userRating" />
+                  </label>
+                </li>
+                <li class="radio">
+                  <label>
+                    Not Sure
+                    <input value="3" type="radio" name="radio-buttons" class="userRating" />
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="rowTab">
+            <div class="labels">
+              <label for="most-like">What do you like most in FCC:</label>
+            </div>
+            <div class="rTab">
+              <select id="most-like" name="mostlike" class="dropdown">
+                <option value="" disabled="">Select an option</option>
+                <option value="challengs">Challengs</option>
+                <option value="projects">Projects</option>
+                <option value="comunity">Comunity</option>
+                <option value="opensource">Open Source</option>
+              </select>
+            </div>
+          </div>
+          <div class="rowTab">
+            <div class="labels">
+              <label for="preferences">Things that should be improved in the future<br />(Check all
+                that apply):
+              </label>
+            </div>
+            <div class="rTab">
+              <ul id="preferences" style="list-style: none;">
+                <li class="checkbox">
+                  <label><input name="prefer" value="1" type="checkbox" class="userRating" />Front-end Projects</label>
+                </li>
+                <li class="checkbox">
+                  <input name="prefer" value="2" type="checkbox" class="userRating" />Back-end Projects
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="3" type="checkbox" class="userRating" />Data Visualization</label>
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="4" type="checkbox" class="userRating" />Challenges</label>
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="5" type="checkbox" class="userRating" />Open Source
+                    Community</label>
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="6" type="checkbox" class="userRating" />Gitter help rooms</label>
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="7" type="checkbox" class="userRating" />Videos</label>
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="8" type="checkbox" class="userRating" />City Meetups</label>
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="9" type="checkbox" class="userRating" />Wiki</label>
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="10" type="checkbox" class="userRating" />Forum</label>
+                </li>
+                <li class="checkbox">
+                  <label><input name="prefer" value="10" type="checkbox" class="userRating" />Additional
+                    Courses</label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="rowTab">
+            <div class="labels">
+              <label for="comments">Any Comments or Suggestions?</label>
+            </div>
+            <div class="rTab">
+              <textarea id="comments" class="input-field" style="height:50px;resize:vertical;" name="comment"
+                placeholder="Enter your comment here..."></textarea>
+            </div>
+          </div>
+          <button id="submit" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+</body>
+</html>
