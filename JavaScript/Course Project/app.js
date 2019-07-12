@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 // ---- BUDGET CONTROLLER MODEL
 var budgetController = (function() {
 
@@ -24,7 +26,17 @@ var budgetController = (function() {
         totals: {
             expense: 0,
             income: 0
-        }
+        },
+        budget: 0,
+        precentage: -1
+    };
+
+    var calculateSum = function(type) {
+        var sum = 0;
+        data.allItems[type].forEach(function(currentValue) {
+            sum += currentValue.value;
+        });
+        data.totals[type] = sum;
     };
 
     return {
@@ -34,37 +46,6 @@ var budgetController = (function() {
             var arr = data.allItems[type];
             var len = arr.length;
             var lastItem = len - 1; // last item index (position)
-
-            /* example of data object after running 
-            var data = {
-                allitems: { 
-                      expense: [
-                          {
-                              id:0, 
-                              description:'description0',
-                              value: 100
-                          }, 
-                          {
-                              id:1, 
-                              description:'description1', 
-                              value:101
-                          }
-                      ],
-                     income: [
-                          {
-                              id:0, 
-                              description:'description0',
-                              value: 100
-                          }, 
-                          {
-                              id:1, 
-                              description:'description1', 
-                              value:101
-                          }
-                      ], 
-                    }
-                  };
-            */
 
             // Create & check ID 
             ID = len > 0 ? arr[lastItem].id + 1 : 0; // arr[lastItem].id: ID + 1
@@ -82,6 +63,25 @@ var budgetController = (function() {
             // Return the new item
             return newItem;
         },
+
+        calculateBudget: function() {
+            calculateSum(expense);
+            calculateSum(income);
+            data.budget = data.totals.income - data.totals.expense;
+            if (data.totals.income > 0) {
+                data.precentage = Math.round((data.totals.expense / data.totals.income) * 100);
+            } else {
+                data.precentage = -1;
+            }
+        },
+        getBudget: function() {
+            return {
+                budget: data.budge,
+                totalIncome: data.totals.income,
+                totlExpense: data.totals.expense,
+                precentage: data.precentage
+            };
+        }
     };
 
 })();
@@ -100,13 +100,13 @@ var UIController = (function() {
         expenseList: '.expenses__list'
     };
 
-    // Public Object by returned it
+    // Publication the Object by returned it
     return {
         getInput: function() {
             return {
                 type: document.querySelector(DOMClasses.addType).value,
                 description: document.querySelector(DOMClasses.addDescription).value,
-                value: document.querySelector(DOMClasses.addValue).value
+                value: parseFloat(document.querySelector(DOMClasses.addValue).value)
             };
         },
 
@@ -117,7 +117,7 @@ var UIController = (function() {
             if (type === 'income') {
                 el = DOMClasses.incomeList;
                 HTML = `<div class="item clearfix" id="income-%id%">
-                            <div class="item__description"><span>%id%: </span>%description%</div>
+                            <div class="item__description">%description%</div>
                             <div class="right clearfix">
                                 <div class="item__value">%value%</div>
                                 <div class="item__delete">
@@ -130,7 +130,7 @@ var UIController = (function() {
             } else if (type === 'expense') {
                 el = DOMClasses.expenseList;
                 HTML = `<div class="item clearfix" id="expense-%id%">
-                            <div class="item__description"><span>%id%: </span>%description%</div>
+                            <div class="item__description">%description%</div>
                             <div class="right clearfix">
                                 <div class="item__value">%value%</div>
                                 <div class="item__percentage">21%</div>
@@ -151,12 +151,17 @@ var UIController = (function() {
         },
 
         clearFields: function() {
-            var fields;
+            var fields, fieldsArr;
 
             fields = document.querySelectorAll(DOMClasses.addDescription + ', ' + DOMClasses.addValue);
-            console.log('fields = ');
-            console.log(fields);
+            fieldsArr = Array.prototype.slice.call(fields);
+            console.log(fieldsArr);
+            fieldsArr.forEach(function(currentValue, index, arr) {
+                currentValue.value = '';
+            });
+            fieldsArr[0].focus();
         },
+
 
         getDOMStr: function() {
             return DOMClasses;
@@ -184,10 +189,18 @@ var controller = (function(budgetCtrl, UICtrl) {
         });
     };
 
+    var updateBudget = function() {
+        budgetCtrl.calculateBudget();
+
+        var budget = budgetCtrl.getBudget();
+        console.log(budget);
+
+    };
+
 
     var ctrlActions = function() {
 
-        // Declaration of varibles
+        // Declaration of variables
         var input;
         var newItem;
 
@@ -195,12 +208,22 @@ var controller = (function(budgetCtrl, UICtrl) {
         input = UICtrl.getInput();
         // console.log(input);
 
-        // 2. Add data item to budget controller
-        newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+        if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
 
-        // 3. Add data item to UI controller
-        UICtrl.addListItems(newItem, input.type);
-        UICtrl.clearFields();
+            // 2. Add data item to budget controller
+            newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+
+            // 3. Add data item to UI controller
+            UICtrl.addListItems(newItem, input.type);
+
+            // 4. Clearing the fields
+            UICtrl.clearFields();
+
+            updateBudget();
+        } else {
+            alert('Please Enter a valid Description or \nvalue greater than 0.');
+        }
+
 
         // 4. Calculate the budget
 
