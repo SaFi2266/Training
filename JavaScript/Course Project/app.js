@@ -41,11 +41,12 @@ var budgetController = (function() {
 
     return {
         addItem: function(type, des, val) {
-            var newItem;
-            var ID;
-            var arr = data.allItems[type];
-            var len = arr.length;
-            var lastItem = len - 1; // last item index (position)
+
+            var newItem, ID, arr, len, lastItem;
+
+            arr = data.allItems[type];
+            len = arr.length;
+            lastItem = len - 1; // last item index (position)
 
             // Create & check ID 
             ID = len > 0 ? arr[lastItem].id + 1 : 0; // arr[lastItem].id: ID + 1
@@ -64,9 +65,24 @@ var budgetController = (function() {
             return newItem;
         },
 
+        deleteItem: function(type, ID) {
+            var ids, index;
+
+            ids = data.allItems[type].map(function(current) {
+                return current.id;
+            });
+
+            index = ids.indexOf(ID);
+
+            if (index !== -1) {
+                data.allItems[type].splice(index, 1);
+
+            }
+        },
+
         calculateBudget: function() {
-            calculateSum(expense);
-            calculateSum(income);
+            calculateSum('expense');
+            calculateSum('income');
             data.budget = data.totals.income - data.totals.expense;
             if (data.totals.income > 0) {
                 data.precentage = Math.round((data.totals.expense / data.totals.income) * 100);
@@ -74,16 +90,16 @@ var budgetController = (function() {
                 data.precentage = -1;
             }
         },
+
         getBudget: function() {
             return {
-                budget: data.budge,
+                budget: data.budget,
                 totalIncome: data.totals.income,
                 totlExpense: data.totals.expense,
                 precentage: data.precentage
             };
         }
     };
-
 })();
 
 
@@ -97,7 +113,12 @@ var UIController = (function() {
         addValue: '.add__value',
         addBtn: '.add__btn',
         incomeList: '.income__list',
-        expenseList: '.expenses__list'
+        expenseList: '.expenses__list',
+        bgtLabel: '.budget__value',
+        incLabel: '.budget__income--value',
+        expLabel: '.budget__expenses--value',
+        precenLabel: '.budget__expenses--percentage',
+        container: '.container'
     };
 
     // Publication the Object by returned it
@@ -147,7 +168,11 @@ var UIController = (function() {
             uHTML = uHTML.replace('%value%', obj.value);
 
             document.querySelector(el).insertAdjacentHTML('beforeend', uHTML);
+        },
 
+        deleteListItems: function(fullId) {
+            var el = document.getElementById(fullId);
+            el.parentNode.removeChild(el);
         },
 
         clearFields: function() {
@@ -155,13 +180,23 @@ var UIController = (function() {
 
             fields = document.querySelectorAll(DOMClasses.addDescription + ', ' + DOMClasses.addValue);
             fieldsArr = Array.prototype.slice.call(fields);
-            console.log(fieldsArr);
-            fieldsArr.forEach(function(currentValue, index, arr) {
-                currentValue.value = '';
+            //console.log(fieldsArr);
+            fieldsArr.forEach(function(current, index, arr) {
+                current.value = '';
             });
             fieldsArr[0].focus();
         },
 
+        displayBudget: function(obj) {
+            document.querySelector(DOMClasses.bgtLabel).textContent = obj.budget;
+            document.querySelector(DOMClasses.incLabel).textContent = obj.totalIncome;
+            document.querySelector(DOMClasses.expLabel).textContent = obj.totlExpense;
+            if (obj.precentage > 0) {
+                document.querySelector(DOMClasses.precenLabel).textContent = obj.precentage + '%';
+            } else {
+                document.querySelector(DOMClasses.precenLabel).textContent = '---';
+            }
+        },
 
         getDOMStr: function() {
             return DOMClasses;
@@ -187,16 +222,18 @@ var controller = (function(budgetCtrl, UICtrl) {
                 ctrlActions();
             }
         });
+        document.querySelector(DOM.container).addEventListener('click', ctrlDeleteAction);
     };
 
     var updateBudget = function() {
+
         budgetCtrl.calculateBudget();
 
         var budget = budgetCtrl.getBudget();
-        console.log(budget);
+        //console.log(budget);
 
+        UICtrl.displayBudget(budget);
     };
-
 
     var ctrlActions = function() {
 
@@ -219,26 +256,57 @@ var controller = (function(budgetCtrl, UICtrl) {
             // 4. Clearing the fields
             UICtrl.clearFields();
 
+            // 5. Calculate the budget & display the budget on the UI
             updateBudget();
+
         } else {
             alert('Please Enter a valid Description or \nvalue greater than 0.');
         }
+    };
+
+    var updatPrecentages = function() {
+
+        // 1. Calculate precentages
 
 
-        // 4. Calculate the budget
+        // 2. Retreive precentages from budget control
 
-        // 5. Display the budget on the UI
 
+        // 3. Update the UI with new precentages
+
+    };
+
+    var ctrlDeleteAction = function(event) {
+        var itemID, splitID, type, ID;
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+        if (itemID) {
+            splitID = itemID.split('-');
+            type = splitID[0];
+            ID = parseInt(splitID[1]);
+
+            // 1. delete item from data structure
+            budgetCtrl.deleteItem(type, ID);
+
+            // 2. delete item form UI
+            UICtrl.deleteListItems(itemID);
+
+            // 3. update the budget
+            updateBudget();
+        }
     };
 
     return {
         init: function() {
             console.log('Application Started ...');
+            UICtrl.displayBudget({
+                budget: 0,
+                totalIncome: 0,
+                totlExpense: 0,
+                precentage: -1
+            });
             actionListener();
         }
-
     };
-
 
 })(budgetController, UIController);
 
