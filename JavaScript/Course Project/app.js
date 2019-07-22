@@ -8,6 +8,19 @@ var budgetController = (function() {
         this.id = id;
         this.description = description;
         this.value = value;
+        this.precentage = -1;
+    };
+
+    Expense.prototype.calcPrecentage = function(totalIncome) {
+        if (totalIncome > 0) {
+            this.precentage = Math.round((this.value / totalIncome) * 100);
+        } else {
+            this.precentage = -1;
+        }
+    };
+
+    Expense.prototype.getPrecentage = function() {
+        return this.precentage;
     };
 
     // Income Constructor
@@ -21,7 +34,7 @@ var budgetController = (function() {
     var data = {
         allItems: {
             expense: [], // [{id:0, description:'description1', value: 100}, {id:1, description:'description2', value:200}]
-            income: []
+            income: [] // briefly: items of this arrays are an objects 
         },
         totals: {
             expense: 0,
@@ -46,10 +59,12 @@ var budgetController = (function() {
 
             arr = data.allItems[type];
             len = arr.length;
-            lastItem = len - 1; // last item index (position)
+
+            // last item index (position)
+            lastItem = len - 1;
 
             // Create & check ID 
-            ID = len > 0 ? arr[lastItem].id + 1 : 0; // arr[lastItem].id: ID + 1
+            ID = len > 0 ? arr[lastItem].id + 1 : 0; // <-- arr[lastItem].id: ID + 1
 
             // Create new item based on expense or income
             if (type === 'expense') {
@@ -91,6 +106,20 @@ var budgetController = (function() {
             }
         },
 
+        calculatePrecenteges: function() {
+            data.allItems.expense.forEach(function(current) {
+                current.calcPrecentage(data.totals.income);
+            });
+        },
+
+        getPrecentages: function() {
+            var allPrec = data.allItems.expense.map(function(current) {
+                return current.getPrecentage();
+            });
+            return allPrec;
+
+        },
+
         getBudget: function() {
             return {
                 budget: data.budget,
@@ -118,7 +147,8 @@ var UIController = (function() {
         incLabel: '.budget__income--value',
         expLabel: '.budget__expenses--value',
         precenLabel: '.budget__expenses--percentage',
-        container: '.container'
+        container: '.container',
+        precentItem: '.item__percentage'
     };
 
     // Publication the Object by returned it
@@ -198,6 +228,25 @@ var UIController = (function() {
             }
         },
 
+        displayPrecentages: function(precentages) {
+            var nodesList = document.querySelectorAll(DOMClasses.precentItem);
+
+            var forEachNodesList = function(list, callback) {
+                for (var i = 0; i < list.length; i++) {
+                    callback(list[i], i);
+                }
+            };
+
+            forEachNodesList(nodesList, function(current, index) {
+
+                if (precentages[index] > 0) {
+                    current.textContent = precentages[index] + '%';
+                } else {
+                    current.textContent = '--';
+                }
+            });
+        },
+
         getDOMStr: function() {
             return DOMClasses;
         }
@@ -216,10 +265,10 @@ var controller = (function(budgetCtrl, UICtrl) {
         var DOM = UICtrl.getDOMStr();
 
         // Actions Listener
-        document.querySelector(DOM.addBtn).addEventListener('click', ctrlActions);
+        document.querySelector(DOM.addBtn).addEventListener('click', ctrlAddingActions);
         document.addEventListener('keypress', function(event) {
             if (event.keyCode === 13 || event.which === 13) {
-                ctrlActions();
+                ctrlAddingActions();
             }
         });
         document.querySelector(DOM.container).addEventListener('click', ctrlDeleteAction);
@@ -235,7 +284,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         UICtrl.displayBudget(budget);
     };
 
-    var ctrlActions = function() {
+    var ctrlAddingActions = function() {
 
         // Declaration of variables
         var input;
@@ -259,6 +308,9 @@ var controller = (function(budgetCtrl, UICtrl) {
             // 5. Calculate the budget & display the budget on the UI
             updateBudget();
 
+            // 6. Calculate & updated precentages
+            updatPrecentages();
+
         } else {
             alert('Please Enter a valid Description or \nvalue greater than 0.');
         }
@@ -267,12 +319,14 @@ var controller = (function(budgetCtrl, UICtrl) {
     var updatPrecentages = function() {
 
         // 1. Calculate precentages
-
+        budgetCtrl.calculatePrecenteges();
 
         // 2. Retreive precentages from budget control
-
+        var precentages = budgetCtrl.getPrecentages();
 
         // 3. Update the UI with new precentages
+        console.log(precentages);
+        UICtrl.displayPrecentages(precentages);
 
     };
 
@@ -292,6 +346,9 @@ var controller = (function(budgetCtrl, UICtrl) {
 
             // 3. update the budget
             updateBudget();
+
+            // 4. Calculate & updated precentages
+            updatPrecentages();
         }
     };
 

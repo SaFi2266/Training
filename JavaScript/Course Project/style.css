@@ -1,6 +1,6 @@
-/**********************************************
-*** GENERAL
-**********************************************/
+/**********
+* GENERAL *
+***********/
 
 * {
     margin: 0;
@@ -35,9 +35,9 @@ body {
     border: 1px solid #FF5049 !important;
 }
 
-/**********************************************
-*** TOP PART
-**********************************************/
+/***********
+* TOP PART *
+************/
 
 .top {
     height: 40vh;
@@ -115,12 +115,13 @@ body {
     border-radius: 3px;
 }
 
+/**************
+* BOTTOM PART *
+***************/
 
-/**********************************************
-*** BOTTOM PART
-**********************************************/
-
-/***** FORM *****/
+/******* 
+* FORM *
+********/
 .add {
     padding: 14px;
     border-bottom: 1px solid #e7e7e7;
@@ -192,7 +193,9 @@ body {
     outline: none;
 }
 
-/***** LISTS *****/
+/********
+* LISTS *
+*********/
 .container {
     width: 1000px;
     margin: 60px auto;
@@ -269,7 +272,6 @@ h2 {
     color: #FF5049;
 }
 
-
 .item__delete {
     float: left;
 }
@@ -305,12 +307,10 @@ h2 {
     transform: translateX(-20px);
 }
 
-
 .unpaid {
     background-color: #FFDAD9 !important;
     cursor: pointer;
     color: #FF5049;
-
 }
 
 .unpaid .item__percentage {
