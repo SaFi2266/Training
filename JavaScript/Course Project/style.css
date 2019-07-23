@@ -32,7 +32,7 @@ body {
 }
 
 .red-focus:focus {
-    border: 1px solid #FF5049 !important;
+    border: 2px solid #FF5049 !important;
 }
 
 /***********
@@ -186,7 +186,7 @@ body {
 .add__description:focus,
 .add__value:focus {
     outline: none;
-    border: 1px solid #28B9B5;
+    border: 2px solid #28B9B5;
 }
 
 .add__btn:focus {
