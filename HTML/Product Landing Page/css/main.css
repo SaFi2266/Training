@@ -1,166 +1,202 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&display=swap");
 
 :root {
-  --main-color: #11144b;
-  --secondary-color: #3a9578;
-  --thrird-color: #f3b75d;
-  --forth-color: #e16262;
+    --main-color: #3D3849;
+    /* Black #271D1A */
+    /* #11144b */
+    --secondary-color: #271D1A;
+    /* Dark Slate Gray #3D3849 */
+    /* #3a9578 */
+    --thrird-color: #E7E0DD;
+    /* Gainsboro #E7E0DD */
+    /* #f3b75d */
+    --forth-color: #817F8F;
+    /* Slate Gray #817F8F */
+    /* #e16262 */
+    --red-color: #DF6480;
+    /* Pale Violet Red #DF6480 */
+    /* #11144b */
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: lato;
-  background-color: white;
-  color: var(--main-color);
+    font-family: lato;
+    background-color: white;
+    color: var(--thrird-color);
 }
 
 ul {
-  padding: 0;
-  list-style: none;
+    padding: 0;
+    list-style: none;
 }
 
 .clearfix {
-  clear: both;
+    clear: both;
 }
 
 #warpper {
-  position: relative;
-  margin: auto;
+    position: relative;
+    margin: auto;
 }
 
 #header {
-  background-color: var(--secondary-color);
-  overflow: hidden;
-  padding-right: 50px;
-  position: fixed;
-  top: 0;
-  width: 100%;
+    background-color: var(--main-color);
+    overflow: hidden;
+    padding-right: 50px;
+    /*position: fixed;*/
+    top: 0;
+    width: 100%;
 }
 
 #logo {
-  padding-left: 50px;
-  float: left;
-  width: 33.33334%;
-  display: flex;
+    padding-left: 50px;
+    float: left;
+    width: 33.33334%;
+    display: flex;
 }
 
 .logo-img {
-  display: inline-block;
-  width: 20%;
+    display: inline-block;
+    width: 20%;
 }
 
 #header-img {
-  max-height: 90px;
+    max-height: 90px;
 }
 
 .logo-text {
-  display: inline-block;
-  margin-top: 15px;
-  width: 80%;
+    display: inline-block;
+    margin-top: 15px;
+    width: 80%;
 }
 
 .logo-text h1 {
-  display: inline-block;
+    display: inline-block;
+}
+
+.logo-text h3 {
+    color: var(--forth-color);
 }
 
 #nav-bar {
-  width: 66.66667%;
-  float: left;
-  background-color: var(--main-color);
-  border-radius: 5px;
-  margin-top: 10px;
+    width: 66.66667%;
+    float: left;
+    background-color: var(--forth-color);
+    border-radius: 5px;
+    margin-top: 1%;
 }
 
 #nav-bar li {
-  text-align: center;
-  width: 20%;
-  float: left;
-  font-size: 18px;
+    text-align: center;
+    width: 25%;
+    float: left;
+    font-size: 18px;
 }
 
 #nav-bar li a {
-  text-decoration: none;
-  padding: 20px 15px;
-  display: block;
-  color: var(--thrird-color);
-  font-weight: 900;
+    text-decoration: none;
+    padding: 20px 15px;
+    display: block;
+    color: var(--thrird-color);
+    font-weight: 900;
+}
+
+#nav-bar li a:hover {
+    text-decoration: underline;
+    color: var(--main-color);
 }
 
 .container {
-  width: 1200px;
-  margin: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-  position: relative;
+    width: 1200px;
+    margin: 0;
+    /*padding-left: 15px;
+    padding-right: 15px;*/
+    position: relative;
 }
 
 #hero {
-  /* width: 100vw; */
-  height: 100%;
-  display: block;
-  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5)),
-    url("../img/bg03.jpeg") no-repeat center center fixed;
-  background-size: cover;
-  color: var(--thrird-color);
-  overflow: hidden;
-  text-align: center;
-  margin-top: 0;
-  padding: 150px 10%;
+    /* width: 100vw; */
+    height: 100%;
+    display: block;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9)),
+        url("../img/bg04.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: var(--thrird-color);
+    overflow: hidden;
+    text-align: center;
+    /*margin-top: 90px;*/
+    padding: 150px 10% 50px;
 }
 
 #hero h1 {
-  font-size: 3.5em;
-  line-height: 1.5em;
-  background: var(--main-color);
-  font-weight: 100;
+    font-size: 3.5em;
+    line-height: 1.5em;
+    background: var(--secondary-color);
+    font-weight: 100;
+    margin-top: 50px;
 }
 
 #hero h2 {
-  font-size: 2em;
-  line-height: 1.7em;
-  background: var(--main-color);
-  display: block;
-  /* margin-top: 10px; */
-  width: 25%;
-  margin: 15px auto;
+    font-size: 2em;
+    line-height: 1.7em;
+    background: var(--secondary-color);
+    display: block;
+    /* margin-top: 10px; */
+    width: 25%;
+    margin: 15px auto;
 }
 
 #hero input[type="email"] {
-  width: 50%;
-  height: 50px;
-  display: block;
-  background: transparent;
-  margin: 5% auto 0;
-  border: 3px solid var(--secondary-color);
-  border-radius: 5px;
-
-  text-align: center;
-  font-size: 20px;
-  z-index: 1;
+    width: 50%;
+    height: 50px;
+    display: block;
+    background: transparent;
+    margin: 5% auto 0;
+    border: 3px solid var(--thrird-color);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 20px;
+    z-index: 1;
 }
 
 #hero input[type="email"]::placeholder {
-  color: #fff;
-  font-weight: 100;
-  font-style: italic;
-  font-family: "Lato", sans-serif;
+    color: var(--thrird-color);
+    font-weight: 100;
+    font-style: italic;
+    font-family: "Lato", sans-serif;
+}
+
+#jambo>div>img {
+    width: 50%;
+    float: none;
+    display: block;
+    height: auto;
+}
+
+#jambo #right {
+    height: auto;
+    background-color: var(--main-color);
+
 }
 
 input.btn {
-  font-size: 24px;
-  margin: 10px 0 0;
-  padding: 10px 15px;
-  background: var(--forth-color);
-  border: 1px solid #fff;
-  border-radius: 5px;
-  color: #fff;
+    font-size: 24px;
+    margin: 10px 0 0;
+    padding: 10px 15px;
+    border: 2px solid var(--thrird-color);
+    border-radius: 5px;
+    background: transparent;
+    color: var(--thrird-color);
 }
+
 input.btn:hover {
-  background: transparent;
-  cursor: pointer;
+    background: var(--red-color);
+    border: 2px solid #fff;
+    cursor: pointer;
+    color: #fff;
 }

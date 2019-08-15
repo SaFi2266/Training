@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Net4U</title>
+</head>
+
+<body>
+    <h1>It's Works</h1>
+    <script>
+    /* jshint esversion: 6 */
+    //https://cors-anywhere.herokuapp.com/
+    const res = fetch('https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/2487956/');    
+        res
+        .then(results => results.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(`The error catched was ${error}.`));
+    </script>
+</body>
+
+</html>
